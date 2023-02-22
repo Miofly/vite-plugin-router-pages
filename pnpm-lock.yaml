@@ -9,8 +9,10 @@ specifiers:
   '@types/glob-to-regexp': ^0.4.1
   '@types/node': ^18.11.18
   '@vitest/ui': ^0.25.7
-  '@vri/utils': ^0.0.17
+  '@vri/constants': ^0.0.13
+  '@vri/utils': ^0.0.22
   '@vue/compiler-sfc': ^3.2.45
+  '@vueuse/core': ^9.13.0
   bumpp: ^8.2.1
   cheerio: 1.0.0-rc.12
   debug: ^4.3.4
@@ -22,7 +24,7 @@ specifiers:
   gray-matter: ^4.0.3
   json5: ^2.2.3
   local-pkg: ^0.4.2
-  lodash-es: ^4.17.21
+  lodash: ^4.17.21
   markdown-it: ^13.0.1
   picocolors: ^1.0.0
   react: ^18.2.0
@@ -39,7 +41,7 @@ specifiers:
 
 dependencies:
   '@types/debug': registry.npmmirror.com/@types/debug/4.1.7
-  '@vri/utils': registry.npmmirror.com/@vri/utils/0.0.17_gnjnaumelmhfuss6u4k62qtpvq
+  '@vueuse/core': registry.npmmirror.com/@vueuse/core/9.13.0_vue@3.2.47
   cheerio: registry.npmmirror.com/cheerio/1.0.0-rc.12
   debug: registry.npmmirror.com/debug/4.3.4
   deep-equal: registry.npmmirror.com/deep-equal/2.2.0
@@ -48,7 +50,7 @@ dependencies:
   gray-matter: registry.npmmirror.com/gray-matter/4.0.3
   json5: registry.npmmirror.com/json5/2.2.3
   local-pkg: registry.npmmirror.com/local-pkg/0.4.3
-  lodash-es: registry.npmmirror.com/lodash-es/4.17.21
+  lodash: registry.npmmirror.com/lodash/4.17.21
   markdown-it: registry.npmmirror.com/markdown-it/13.0.1
   picocolors: registry.npmmirror.com/picocolors/1.0.0
   vite-plugin-dts: registry.npmmirror.com/vite-plugin-dts/2.0.0-beta.3_ioavmsrnmolcnslmwd7yaa5uom
@@ -62,6 +64,8 @@ devDependencies:
   '@types/glob-to-regexp': registry.npmmirror.com/@types/glob-to-regexp/0.4.1
   '@types/node': registry.npmmirror.com/@types/node/18.14.0
   '@vitest/ui': registry.npmmirror.com/@vitest/ui/0.25.8
+  '@vri/constants': registry.npmmirror.com/@vri/constants/0.0.13
+  '@vri/utils': registry.npmmirror.com/@vri/utils/0.0.22_vue@3.2.47
   '@vue/compiler-sfc': registry.npmmirror.com/@vue/compiler-sfc/3.2.47
   bumpp: registry.npmmirror.com/bumpp/8.2.1
   eslint: registry.npmmirror.com/eslint/8.34.0
@@ -1013,12 +1017,6 @@ packages:
     version: 0.0.29
     dev: true
 
-  registry.npmmirror.com/@types/lodash/4.14.191:
-    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/lodash/-/lodash-4.14.191.tgz}
-    name: '@types/lodash'
-    version: 4.14.191
-    dev: false
-
   registry.npmmirror.com/@types/mdast/3.0.10:
     resolution: {integrity: sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/mdast/-/mdast-3.0.10.tgz}
     name: '@types/mdast'
@@ -1221,71 +1219,24 @@ packages:
       sirv: registry.npmmirror.com/sirv/2.0.2
     dev: true
 
-  registry.npmmirror.com/@vri/constants/0.0.8_@types+node@18.14.0:
-    resolution: {integrity: sha512-0uC/ZH/g4cUboP8KfBVwWXvcMDWejY1WzU+sQrVoCFdezomUJHmVeCOGl4pkbOGCRTdJnd62unk6mcjTF2HKtg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vri/constants/-/constants-0.0.8.tgz}
-    id: registry.npmmirror.com/@vri/constants/0.0.8
+  registry.npmmirror.com/@vri/constants/0.0.13:
+    resolution: {integrity: sha512-S+DfPQBRwXfpSyHrd5G2vWt2DvRlQRRV6+ttCkzVGi0T1PLXpLkOC0m3L6RlRGsWmUR+TFwG2nLm9pbWPgrGfA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vri/constants/-/constants-0.0.13.tgz}
     name: '@vri/constants'
-    version: 0.0.8
-    dependencies:
-      '@vri/tsconfig': registry.npmmirror.com/@vri/tsconfig/0.0.1_@types+node@18.14.0
-      vite: registry.npmmirror.com/vite/4.1.4_@types+node@18.14.0
-      vite-plugin-dts: registry.npmmirror.com/vite-plugin-dts/2.0.0-beta.3_ioavmsrnmolcnslmwd7yaa5uom
-    transitivePeerDependencies:
-      - '@types/node'
-      - less
-      - rollup
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: false
+    version: 0.0.13
+    dev: true
 
-  registry.npmmirror.com/@vri/tsconfig/0.0.1_@types+node@18.14.0:
-    resolution: {integrity: sha512-KHRgNX4wEkVXyzc8/+cdJcPaNaQye4pUoTjWaNGxCXDbDKhx5+4t4iZ5RDMG0bujUAI185Kj8ZGfyQoAEKw8Mw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vri/tsconfig/-/tsconfig-0.0.1.tgz}
-    id: registry.npmmirror.com/@vri/tsconfig/0.0.1
-    name: '@vri/tsconfig'
-    version: 0.0.1
-    peerDependencies:
-      '@types/node': '*'
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-    dependencies:
-      '@types/node': registry.npmmirror.com/@types/node/18.14.0
-    dev: false
-
-  registry.npmmirror.com/@vri/utils/0.0.17_gnjnaumelmhfuss6u4k62qtpvq:
-    resolution: {integrity: sha512-Qu4FOP0blbL2vcXbFWxFa/I3T8EatXMjcIQhR0SY051aHM+TitZb7OHFjUicywCqQB1uC6xaYAMzhn5FYmUHBw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vri/utils/-/utils-0.0.17.tgz}
-    id: registry.npmmirror.com/@vri/utils/0.0.17
+  registry.npmmirror.com/@vri/utils/0.0.22_vue@3.2.47:
+    resolution: {integrity: sha512-nhIozHRG4vgwqOsL6Gc2AF9Ugq0MHILSjQgSkL5CovF8h2v5wyn7L7NhDK0IExyYY+Qr+sYZkoqh2aCmcCQ6hA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vri/utils/-/utils-0.0.22.tgz}
+    id: registry.npmmirror.com/@vri/utils/0.0.22
     name: '@vri/utils'
-    version: 0.0.17
+    version: 0.0.22
     peerDependencies:
       vue: ^3.2.45
     dependencies:
-      '@types/lodash': registry.npmmirror.com/@types/lodash/4.14.191
-      '@vri/constants': registry.npmmirror.com/@vri/constants/0.0.8_@types+node@18.14.0
-      '@vri/tsconfig': registry.npmmirror.com/@vri/tsconfig/0.0.1_@types+node@18.14.0
-      '@vue/shared': registry.npmmirror.com/@vue/shared/3.2.47
-      '@vueuse/core': registry.npmmirror.com/@vueuse/core/9.13.0_vue@3.2.47
-      '@vueuse/shared': registry.npmmirror.com/@vueuse/shared/9.13.0_vue@3.2.47
       crypto-js: registry.npmmirror.com/crypto-js/4.1.1
       dayjs: registry.npmmirror.com/dayjs/1.11.7
-      lodash: registry.npmmirror.com/lodash/4.17.21
-      vite: registry.npmmirror.com/vite/4.1.4_@types+node@18.14.0
-      vite-plugin-dts: registry.npmmirror.com/vite-plugin-dts/2.0.0-beta.3_ioavmsrnmolcnslmwd7yaa5uom
       vue: registry.npmmirror.com/vue/3.2.47
-    transitivePeerDependencies:
-      - '@types/node'
-      - '@vue/composition-api'
-      - less
-      - rollup
-      - sass
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-    dev: false
+    dev: true
 
   registry.npmmirror.com/@vue/compiler-core/3.2.47:
     resolution: {integrity: sha512-p4D7FDnQb7+YJmO2iPEv0SQNeNzcbHdGByJDsT4lynf63AFkOTFN07HsiRSvjGo0QrxR/o3d0hUyNCUnBU2Tig==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vue/compiler-core/-/compiler-core-3.2.47.tgz}
@@ -1926,7 +1877,7 @@ packages:
     resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/crypto-js/-/crypto-js-4.1.1.tgz}
     name: crypto-js
     version: 4.1.1
-    dev: false
+    dev: true
 
   registry.npmmirror.com/css-select/5.1.0:
     resolution: {integrity: sha512-nwoRF1rvRRnnCqqY7updORDsuqKzqYJ28+oSMaJMMgOauh3fvwHqMS7EZpIPqK8GL+g9mKxF1vP/ZjSeNjEVHg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/css-select/-/css-select-5.1.0.tgz}
@@ -1976,7 +1927,7 @@ packages:
     resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dayjs/-/dayjs-1.11.7.tgz}
     name: dayjs
     version: 1.11.7
-    dev: false
+    dev: true
 
   registry.npmmirror.com/debug/3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/debug/-/debug-3.2.7.tgz}
@@ -3911,12 +3862,6 @@ packages:
     dependencies:
       p-locate: registry.npmmirror.com/p-locate/5.0.0
     dev: true
-
-  registry.npmmirror.com/lodash-es/4.17.21:
-    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/lodash-es/-/lodash-es-4.17.21.tgz}
-    name: lodash-es
-    version: 4.17.21
-    dev: false
 
   registry.npmmirror.com/lodash.get/4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/lodash.get/-/lodash.get-4.4.2.tgz}

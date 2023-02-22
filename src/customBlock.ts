@@ -1,7 +1,7 @@
 import MarkdownIt from 'markdown-it';
 import fs from 'fs';
 import JSON5 from 'json5';
-import { omit, pick } from 'lodash-es';
+import { omit, pick } from 'lodash';
 import { parse as YAMLParser } from 'yaml';
 import matter from 'gray-matter';
 import { importModule } from 'local-pkg';

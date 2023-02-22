@@ -1,5 +1,5 @@
 import { isEmptyObject } from '@vri/utils';
-import { pick, omit } from 'lodash-es';
+import { pick, omit } from 'lodash';
 import colors from 'picocolors';
 import deepEqual from 'deep-equal';
 import { countSlash, isCatchAllRoute, isDynamicRoute, normalizeCase, normalizeName } from '../utils';

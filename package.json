@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-router-pages",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "packageManager": "pnpm@7.21.0",
   "description": "File system base vue-router plugin for Vite",
   "keywords": [
@@ -65,7 +65,7 @@
   },
   "dependencies": {
     "@types/debug": "^4.1.7",
-    "@vri/utils": "^0.0.17",
+    "@vueuse/core": "^9.13.0",
     "cheerio": "1.0.0-rc.12",
     "debug": "^4.3.4",
     "deep-equal": "^2.1.0",
@@ -74,7 +74,7 @@
     "gray-matter": "^4.0.3",
     "json5": "^2.2.3",
     "local-pkg": "^0.4.2",
-    "lodash-es": "^4.17.21",
+    "lodash": "^4.17.21",
     "markdown-it": "^13.0.1",
     "picocolors": "^1.0.0",
     "vite-plugin-dts": "2.0.0-beta.3",
@@ -88,6 +88,8 @@
     "@types/glob-to-regexp": "^0.4.1",
     "@types/node": "^18.11.18",
     "@vitest/ui": "^0.25.7",
+    "@vri/constants": "^0.0.13",
+    "@vri/utils": "^0.0.22",
     "@vue/compiler-sfc": "^3.2.45",
     "bumpp": "^8.2.1",
     "eslint": "^8.31.0",
