@@ -1,4 +1,3 @@
-import { isEmptyObject } from '@vri/utils';
 import { pick, omit } from 'lodash';
 import colors from 'picocolors';
 import deepEqual from 'deep-equal';

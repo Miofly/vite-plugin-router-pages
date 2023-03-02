@@ -1,4 +1,4 @@
-import { isEmptyObject, omit } from '@vri/utils';
+import { isEmptyObject, omit } from '@vft/utils';
 import fg from 'fast-glob';
 import { extname, join, resolve } from 'path';
 import { slash, toArray } from '@antfu/utils';
