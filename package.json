@@ -28,7 +28,10 @@
   "scripts": {
     "build": "tsup",
     "prepublishOnly": "npm run build",
-    "pub": "tsx scripts/publish.ts"
+    "pub": "tsx scripts/publish.ts",
+    "clean": "pnpm /^clean:/",
+    "clean:dist": "rimraf dist",
+    "clean:node_modules": "rimraf node_modules"
   },
   "peerDependencies": {
     "@vue/compiler-sfc": "^2.7.0 || ^3.0.0",
@@ -42,8 +45,8 @@
   "dependencies": {
     "@antfu/utils": "^0.7.2",
     "@types/debug": "^4.1.7",
-    "@vft/constants": "workspace:^0.0.28",
-    "@vft/utils": "workspace:^0.0.6",
+    "@vft/constants": "workspace:*",
+    "@vft/utils": "workspace:*",
     "@vue/compiler-sfc": "^3.2.45",
     "@vueuse/core": "^9.13.0",
     "cheerio": "1.0.0-rc.12",
