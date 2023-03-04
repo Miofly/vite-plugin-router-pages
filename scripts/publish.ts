@@ -4,6 +4,6 @@ import { version } from '../package.json';
 let command = 'pnpm publish --access public --no-git-checks';
 
 if (version.includes('beta'))
-  command += ' --tag beta'
+  command += ' --tag beta';
 
-execSync(command, { stdio: 'inherit' })
+execSync(command, { stdio: 'inherit' });
