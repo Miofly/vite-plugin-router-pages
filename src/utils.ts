@@ -1,10 +1,10 @@
-import { resolve, win32 } from 'path';
-import { URLSearchParams } from 'url';
-import Debug from 'debug';
 import { slash } from '@antfu/utils';
-import { MODULE_ID_VIRTUAL, cacheAllRouteRE, countSlashRE, dynamicRouteRE, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE, replaceIndexRE } from './constants';
+import Debug from 'debug';
+import { resolve } from 'path';
+import { URLSearchParams } from 'url';
 
 import type { ModuleNode, ViteDevServer } from 'vite';
+import { cacheAllRouteRE, countSlashRE, dynamicRouteRE, MODULE_ID_VIRTUAL, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE } from './constants';
 import type { ResolvedOptions } from './types';
 
 export const debug = {

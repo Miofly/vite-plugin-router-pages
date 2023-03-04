@@ -1,6 +1,6 @@
-import type { VueRoute } from './resolvers';
-import type { PageContext } from './context';
 import type { Awaitable } from '@antfu/utils';
+import type { PageContext } from './context';
+import type { VueRoute } from './resolvers';
 
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 

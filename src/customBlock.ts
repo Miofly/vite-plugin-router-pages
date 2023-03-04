@@ -1,18 +1,18 @@
-import MarkdownIt from 'markdown-it';
-import fs from 'fs';
-import JSON5 from 'json5';
-import { omit, pick } from 'lodash';
-import { parse as YAMLParser } from 'yaml';
-import matter from 'gray-matter';
-import { importModule } from 'local-pkg';
-import { extname } from 'path';
-import { load } from 'cheerio';
-import extractComments from 'extract-comments';
-import { debug } from './utils';
 // @ts-ignore
 import type { SFCBlock, SFCDescriptor } from '@vue/compiler-sfc';
-import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types';
 import type { AnyNode } from 'cheerio';
+import { load } from 'cheerio';
+import extractComments from 'extract-comments';
+import fs from 'fs';
+import matter from 'gray-matter';
+import JSON5 from 'json5';
+import { importModule } from 'local-pkg';
+import MarkdownIt from 'markdown-it';
+import { extname } from 'path';
+import { parse as YAMLParser } from 'yaml';
+import type { CustomBlock, ParsedJSX, ResolvedOptions } from './types';
+import { debug } from './utils';
+
 const routeJSXReg = /^[\n\s]+(route)[\n\s]+/gm;
 const $ = load('');
 

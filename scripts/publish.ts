@@ -1,7 +1,7 @@
-import { execSync } from 'child_process'
-import { version } from '../package.json'
+import { execSync } from 'child_process';
+import { version } from '../package.json';
 
-let command = 'pnpm publish --access public --no-git-checks'
+let command = 'pnpm publish --access public --no-git-checks';
 
 if (version.includes('beta'))
   command += ' --tag beta'

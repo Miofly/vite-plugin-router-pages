@@ -1,15 +1,15 @@
+import { slash, toArray } from '@antfu/utils';
 import { isEmptyObject, omit } from '@vft/utils';
 import fg from 'fast-glob';
-import { extname, join, resolve } from 'path';
-import { slash, toArray } from '@antfu/utils';
-import type { RouteLocationNormalized } from 'vue-router';
-import { resolveOptions } from './options';
-import { getPageDirs, getPageFiles } from './files';
-import { debug, invalidatePagesModule, isTarget } from './utils';
 
 import type { FSWatcher } from 'fs';
+import { extname, resolve } from 'path';
 import type { Logger, ViteDevServer } from 'vite';
+import type { RouteLocationNormalized } from 'vue-router';
+import { getPageFiles } from './files';
+import { resolveOptions } from './options';
 import type { PageOptions, ResolvedOptions, UserOptions } from './types';
+import { debug, invalidatePagesModule, isTarget } from './utils';
 
 export interface PageRoute {
   path: string;

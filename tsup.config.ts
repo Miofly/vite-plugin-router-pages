@@ -1,5 +1,5 @@
-import { defineConfig } from 'tsup';
 import { resolve } from 'path';
+import { defineConfig } from 'tsup';
 
 export default defineConfig({
   entry: ['src/index.ts'],
@@ -7,7 +7,7 @@ export default defineConfig({
   dts: {
     resolve: true,
     compilerOptions: {
-      "skipLibCheck": true,
+      skipLibCheck: true
     }
   },
   tsconfig: resolve('./tsconfig.json'),

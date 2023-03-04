@@ -1,12 +1,12 @@
-import { pick, omit } from 'lodash';
-import colors from 'picocolors';
 import deepEqual from 'deep-equal';
-import { countSlash, isCatchAllRoute, isDynamicRoute, normalizeCase, normalizeName } from '../utils';
-import { generateClientCode } from '../stringify';
+import { omit, pick } from 'lodash';
+import colors from 'picocolors';
+import type { PageContext } from '../context';
 
 import { getRouteBlock } from '../customBlock';
+import { generateClientCode } from '../stringify';
 import type { CustomBlock, Optional, PageResolver } from '../types';
-import type { PageContext } from '../context';
+import { countSlash, isCatchAllRoute, isDynamicRoute, normalizeCase, normalizeName } from '../utils';
 
 export interface VueRouteBase {
   name: string;

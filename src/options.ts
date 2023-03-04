@@ -1,9 +1,9 @@
-import { resolve } from 'path';
 import { slash, toArray } from '@antfu/utils';
+import { resolve } from 'path';
+import { MODULE_IDS } from './constants';
 import { getPageDirs } from './files';
 
 import { vueResolver } from './resolvers';
-import { MODULE_IDS } from './constants';
 import type { ImportModeResolver, ResolvedOptions, UserOptions } from './types';
 
 function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: string[], basePageDir) {
