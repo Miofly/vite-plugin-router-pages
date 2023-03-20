@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-router-pages",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "File system base vue-router plugin for Vite",
   "keywords": [
     "vite",
@@ -27,8 +27,9 @@
   ],
   "scripts": {
     "build": "tsup",
+    "stub": "tsup",
     "prepublishOnly": "npm run build",
-    "pub": "tsx scripts/publish.ts",
+    "pub": "tsup && tsx scripts/publish.ts",
     "clean": "pnpm /^clean:/",
     "clean:dist": "rimraf dist",
     "clean:node_modules": "rimraf node_modules"
