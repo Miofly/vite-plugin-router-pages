@@ -12,5 +12,5 @@ export default defineConfig({
   },
   tsconfig: resolve('./tsconfig.json'),
   clean: true,
-  sourcemap: true
+  sourcemap: false
 });
