@@ -1,33 +1,10 @@
 {
-	"compilerOptions": {
-		"module": "esnext",
-		"moduleResolution": "Node",
-		"resolveJsonModule": true,
-		"useDefineForClassFields": true,
-		"jsx": "preserve",
-		"strict": false,
-		"isolatedModules": true,
-		"preserveValueImports": true,
-		"target": "ES2018",
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"skipLibCheck": true,
-		"allowJs": true,
-    "noImplicitAny": false,
-    "removeComments": true,
-    "lib": [
-      "ES2018",
-      "DOM",
-      "DOM.Iterable"
-    ]
+  "extends": "@vft/tsconfig/tsconfig.node.json",
+  "compilerOptions": {
+    "strict": false
   },
   "include": [
-    "src",
-	  "**global.d.ts**"
-  ],
-	"exclude": [
-		"node_modules",
-		"**/node_modules/**",
-		"**/dist/**"
-	]
+    "scripts",
+    "src"
+  ]
 }
