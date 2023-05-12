@@ -67,7 +67,7 @@
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.1",
     "vue": "3.2.47",
-    "vue-router": "^4.1.6"
+    "vue-router": "4.1.6"
   },
   "pnpm": {
     "peerDependencyRules": {
