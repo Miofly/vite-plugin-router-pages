@@ -52,7 +52,7 @@
     "@vueuse/core": "10.1.2",
     "cheerio": "1.0.0-rc.12",
     "debug": "^4.3.4",
-    "deep-equal": "^2.2.0",
+    "deep-equal": "^2.2.1",
     "extract-comments": "^1.1.0",
     "fast-glob": "^3.2.12",
     "gray-matter": "^4.0.3",
@@ -61,7 +61,7 @@
     "lodash": "^4.17.21",
     "markdown-it": "^13.0.1",
     "picocolors": "^1.0.0",
-    "yaml": "^2.2.1"
+    "yaml": "^2.2.2"
   },
   "devDependencies": {
     "@types/deep-equal": "^1.0.1",
