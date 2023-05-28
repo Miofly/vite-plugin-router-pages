@@ -1,7 +1,8 @@
 import { execSync } from 'child_process';
 import { version } from '../package.json';
 
-let command = 'git commit -am \'feat: update\' && pnpm publish --access public --no-git-checks';
+// let command = 'git commit -am \'feat: update\'  && pnpm publish --access public --no-git-checks';
+let command = 'pnpm publish --access public --no-git-checks';
 
 if (version.includes('beta'))
   command += ' --tag beta';
