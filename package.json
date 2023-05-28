@@ -45,10 +45,10 @@
   },
   "dependencies": {
     "@antfu/utils": "^0.7.2",
-    "@types/debug": "^4.1.7",
+    "@types/debug": "^4.1.8",
     "@vft/constants": "workspace:*",
     "@vft/utils": "workspace:*",
-    "@vue/compiler-sfc": "3.2.47",
+    "@vue/compiler-sfc": "3.3.4",
     "@vueuse/core": "10.1.2",
     "cheerio": "1.0.0-rc.12",
     "debug": "^4.3.4",
@@ -61,13 +61,11 @@
     "lodash": "^4.17.21",
     "markdown-it": "^13.0.1",
     "picocolors": "^1.0.0",
-    "yaml": "^2.2.2"
-  },
-  "devDependencies": {
+    "yaml": "^2.3.1",
     "@types/deep-equal": "^1.0.1",
     "@types/glob-to-regexp": "^0.4.1",
-    "vue": "3.2.47",
-    "vue-router": "4.2.0"
+    "vue": "3.3.4",
+    "vue-router": "4.2.1"
   },
   "pnpm": {
     "peerDependencyRules": {
