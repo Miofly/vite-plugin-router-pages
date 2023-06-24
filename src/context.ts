@@ -116,7 +116,7 @@ export class PageContext {
           meta: {
             ..._pageDirInfos,
             title: pageDir.title,
-            isBlog: pageDir.isBlog
+            isMd: pageDir.isMd
           },
           children: [routeInfo]
         });
@@ -162,7 +162,7 @@ export class PageContext {
 
       debug.search(page.dir, files);
 
-      if (page.isBlog) {
+      if (page.isMd) {
         page.levelRouterDirList = fg
           .sync(slash(pagesDirPath) + '/**', {
             onlyDirectories: true

@@ -23,7 +23,7 @@ export type InternalPageResolvers = 'vue';
 export interface PageOptions extends Record<string, any> {
   dir: string;
   baseRoute: string;
-  isBlog?: boolean;
+  isMd?: boolean;
   levelRouterDirList?: { path: string; title?: string }[];
 }
 

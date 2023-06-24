@@ -170,7 +170,7 @@ async function generateRoutes(pageRoutes, ctx, customBlockMap) {
               });
               if (!isIndexFound) route.path += '?';
             }
-          } else if (page.isBlog) {
+          } else if (page.isMd) {
             let _path;
             if (normalizedPath.includes('.')) {
               _path = normalizedPath.split('.');
