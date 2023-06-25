@@ -29,7 +29,7 @@
     "build": "tsup",
     "stub": "tsup",
     "prepublishOnly": "npm run build",
-    "pub": "tsup && tsx scripts/publish.ts",
+    "pub": "pnpm build &&  tsx ../../scripts/build/src/publish.ts --pkg vite-plugin/vite-plugin-router-pages",
     "clean": "pnpm /^clean:/",
     "clean:dist": "rimraf dist",
     "clean:node_modules": "rimraf node_modules"
@@ -66,13 +66,6 @@
     "@types/glob-to-regexp": "^0.4.1",
     "vue": "3.3.4",
     "vue-router": "4.2.1"
-  },
-  "pnpm": {
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "vite": "*"
-      }
-    }
   },
   "publishConfig": {
     "access": "public",
