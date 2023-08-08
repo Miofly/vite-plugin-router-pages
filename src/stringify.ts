@@ -34,7 +34,9 @@ export function stringifyRoutes(preparedRoutes: any[], options: ResolvedOptions)
 
   function getImportString(path: string, importName: string) {
     const mode = resolveImportMode(path, options);
-    return mode === 'sync' ? `import ${importName} from "${path}"` : `const ${importName} = ${options.resolver.stringify?.dynamicImport?.(path) || `() => import("${path}")`}`;
+    return mode === 'sync'
+      ? `import ${importName} from "${path}"`
+      : `const ${importName} = ${options.resolver.stringify?.dynamicImport?.(path) || `() => import("${path}")`}`;
   }
 
   function componentReplacer(str: string, replaceStr: string, path: string) {
@@ -57,9 +59,11 @@ export function stringifyRoutes(preparedRoutes: any[], options: ResolvedOptions)
     return str;
   }
 
-  const stringRoutes = JSON.stringify(preparedRoutes, replaceFunction).replace(componentRE, componentReplacer).replace(hasFunctionRE, functionReplacer);
+  const stringRoutes = JSON.stringify(preparedRoutes, replaceFunction)
+    .replace(componentRE, componentReplacer)
+    .replace(hasFunctionRE, functionReplacer);
 
-  const imports = Array.from(importsMap).map((args) => getImportString(...args));
+  const imports = Array.from(importsMap).map(args => getImportString(...args));
 
   return {
     imports,

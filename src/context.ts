@@ -16,7 +16,12 @@ export interface PageRoute {
   route: string;
 }
 
-type RouteType = Pick<RouteLocationNormalized, 'path' | 'name' | 'meta'> & { route?: string; component: string; hideComp?: boolean; children: Partial<RouteType>[] };
+type RouteType = Pick<RouteLocationNormalized, 'path' | 'name' | 'meta'> & {
+  route?: string;
+  component: string;
+  hideComp?: boolean;
+  children: Partial<RouteType>[];
+};
 
 export class PageContext {
   private _server: ViteDevServer | undefined;
@@ -47,30 +52,30 @@ export class PageContext {
   }
 
   setupWatcher(watcher: FSWatcher) {
-    watcher.on('unlink', async (path) => {
+    watcher.on('unlink', async path => {
       path = slash(path);
       if (!isTarget(path, this.options)) return;
-      const page = this.options.dirs.find((i) => path.startsWith(slash(resolve(this.root, i.dir))))!;
+      const page = this.options.dirs.find(i => path.startsWith(slash(resolve(this.root, i.dir))))!;
       await this.removePage(path, page);
       this.onUpdate();
     });
-    watcher.on('add', async (path) => {
+    watcher.on('add', async path => {
       path = slash(path);
 
       if (!isTarget(path, this.options)) return;
-      const page = this.options.dirs.find((i) => path.startsWith(slash(resolve(this.root, i.dir))))!;
+      const page = this.options.dirs.find(i => path.startsWith(slash(resolve(this.root, i.dir))))!;
       await this.addPage(path, page);
       this.onUpdate();
     });
 
-    watcher.on('change', async (path) => {
+    watcher.on('change', async path => {
       path = slash(path);
       if (!isTarget(path, this.options)) return;
-      const page = this.options.dirs.find((i) => path.startsWith(slash(resolve(this.root, i.dir))))!;
+      const page = this.options.dirs.find(i => path.startsWith(slash(resolve(this.root, i.dir))))!;
 
       const pageList = this._pageRouteMap.get(page.dir) as RouteType;
 
-      const _page = pageList.children.some((item) => {
+      const _page = pageList.children.some(item => {
         return item.path === path;
       });
       if (_page) await this.options.resolver.hmr?.changed?.(this, path);
@@ -89,12 +94,12 @@ export class PageContext {
         route = route.slice(0, _length);
       }
 
-      const _route = pageDir?.levelRouterDirList?.filter((item) => {
+      const _route = pageDir?.levelRouterDirList?.filter(item => {
         return item.path === route;
       });
-      
+
       const _pageDirInfos = omit(pageDir, ['files', 'dir', 'baseRoute', 'title', 'levelRouterDirList']);
-      
+
       const routeInfo = _route?.length
         ? {
             ..._pageDirInfos,
@@ -130,7 +135,7 @@ export class PageContext {
     const pageList = this._pageRouteMap.get(pageDir.dir) as RouteType;
     if (pageList.children?.length) {
       pageList.children.splice(
-        pageList.children.findIndex((item) => item.path === path),
+        pageList.children.findIndex(item => item.path === path),
         1
       );
     }
@@ -155,7 +160,7 @@ export class PageContext {
   }
 
   async searchGlob() {
-    const pageDirFiles = this.options.dirs.map((page) => {
+    const pageDirFiles = this.options.dirs.map(page => {
       const pagesDirPath = slash(resolve(this.options.root, page.dir));
 
       const files = getPageFiles(pagesDirPath, this.options);
@@ -167,7 +172,7 @@ export class PageContext {
           .sync(slash(pagesDirPath) + '/**', {
             onlyDirectories: true
           })
-          .map((item) => {
+          .map(item => {
             return {
               path: item.replace(new RegExp(pagesDirPath + '/'), '')
             };
@@ -182,7 +187,7 @@ export class PageContext {
 
       return {
         ...page,
-        files: files.map((file) => slash(file))
+        files: files.map(file => slash(file))
       };
     });
 

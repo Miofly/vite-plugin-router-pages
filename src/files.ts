@@ -17,7 +17,7 @@ export function getPageDirs(PageOptions: PageOptions, root: string, exclude: str
     cwd: root
   });
 
-  const pageDirs = dirs.map((dir) => ({
+  const pageDirs = dirs.map(dir => ({
     ...PageOptions,
     dir
   }));
@@ -39,7 +39,7 @@ export function getPageFiles(path: string, options: ResolvedOptions): string[] {
       onlyFiles: true,
       cwd: path
     })
-    .map((p) => slash(join(path, p)));
+    .map(p => slash(join(path, p)));
 
   return files;
 }

@@ -34,7 +34,8 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
     async load(id) {
       const { moduleId, pageId } = parsePageRequest(id);
 
-      if (moduleId === MODULE_ID_VIRTUAL && pageId && ctx.options.moduleIds.includes(pageId)) return ctx.resolveRoutes();
+      if (moduleId === MODULE_ID_VIRTUAL && pageId && ctx.options.moduleIds.includes(pageId))
+        return ctx.resolveRoutes();
 
       if (id === ROUTE_BLOCK_ID_VIRTUAL) {
         return {

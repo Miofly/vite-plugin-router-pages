@@ -138,7 +138,8 @@ interface Options {
 
 export type UserOptions = Partial<Options>;
 
-export interface ResolvedOptions extends Omit<Options, 'pagesDir' | 'replaceSquareBrackets' | 'nuxtStyle' | 'syncIndex' | 'moduleId'> {
+export interface ResolvedOptions
+  extends Omit<Options, 'pagesDir' | 'replaceSquareBrackets' | 'nuxtStyle' | 'syncIndex' | 'moduleId'> {
   /**
    * Resolves to the `root` value from Vite config.
    * @default config.root

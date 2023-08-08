@@ -47,7 +47,7 @@ function prepareRoutes(ctx: PageContext, routes: VueRoute[], parent?: VueRoute) 
 
     if (route.children) route.children = prepareRoutes(ctx, route.children, route);
 
-    if (route.children?.find((c) => c.name === route.name)) delete route.name;
+    if (route.children?.find(c => c.name === route.name)) delete route.name;
 
     route.props = true;
 
@@ -75,7 +75,7 @@ function prepareRoutes(ctx: PageContext, routes: VueRoute[], parent?: VueRoute) 
 async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>): Promise<VueRoute[]> {
   const pageRoutes = [...ctx.pageRouteMap.values()];
 
-  const _routes = pageRoutes.map(async (item) => {
+  const _routes = pageRoutes.map(async item => {
     const data = await generateRoutes(item, ctx, customBlockMap);
     return {
       ...item,
@@ -93,13 +93,15 @@ async function generateRoutes(pageRoutes, ctx, customBlockMap) {
 
   pageRoutes.children
     .sort((a, b) => countSlash(a.route) - countSlash(b.route))
-    .forEach((page) => {
+    .forEach(page => {
       const pathNodes = page.route.split('/');
       const component = page.path.replace(ctx.root, '');
 
       const noInMeta = ['path', 'hideComp', 'route'];
 
-      const customBlock = customBlockMap.get(page.path) ? { ...omit(page, noInMeta), ...customBlockMap.get(page.path) } : omit(page, noInMeta);
+      const customBlock = customBlockMap.get(page.path)
+        ? { ...omit(page, noInMeta), ...customBlockMap.get(page.path) }
+        : omit(page, noInMeta);
 
       const route: VueRouteBase = {
         name: pageRoutes.path.replace(/\//, ''),
@@ -135,7 +137,7 @@ async function generateRoutes(pageRoutes, ctx, customBlockMap) {
         }
 
         // Check parent exits
-        const parent = parentRoutes.find((parent) => {
+        const parent = parentRoutes.find(parent => {
           return pathNodes.slice(0, i + 1).join('/') === parent.rawRoute;
         });
 

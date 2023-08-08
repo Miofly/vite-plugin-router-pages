@@ -47,7 +47,10 @@ export const SVG_TAGS = (
 export function parseJSX(code: string): ParsedJSX[] {
   return extractComments(code)
     .slice(0, 1)
-    .filter((comment: ParsedJSX) => routeJSXReg.test(comment.value) && comment.value.includes(':') && comment.loc.start.line === 1);
+    .filter(
+      (comment: ParsedJSX) =>
+        routeJSXReg.test(comment.value) && comment.value.includes(':') && comment.loc.start.line === 1
+    );
 }
 
 export function parseYamlComment(code: ParsedJSX[], path: string): CustomBlock {
@@ -142,11 +145,16 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
         }
       } else {
         let excerpt = '';
-        const handleNode = (node: AnyNode, base: string, isCustomElement: (tagName: string) => boolean): AnyNode | null => {
+        const handleNode = (
+          node: AnyNode,
+          base: string,
+          isCustomElement: (tagName: string) => boolean
+        ): AnyNode | null => {
           if (node.type === 'tag') {
             // toc should be dropped
-            if ([node.attribs['class'], node.attribs['id']].some((item) => ['table-of-contents', 'toc'].includes(item))) return null;
-  
+            if ([node.attribs['class'], node.attribs['id']].some(item => ['table-of-contents', 'toc'].includes(item)))
+              return null;
+
             if (node.tagName === 'a') {
               node.attribs['target'] = '_blank';
               return node;
@@ -159,7 +167,9 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
               if (HEADING_TAGS.includes(node.tagName)) {
                 delete node.attribs['id'];
                 delete node.attribs['tabindex'];
-                node.children = node.children.filter((child) => child.type !== 'tag' || child.tagName !== 'a' || child.attribs['class'] !== 'header-anchor');
+                node.children = node.children.filter(
+                  child => child.type !== 'tag' || child.tagName !== 'a' || child.attribs['class'] !== 'header-anchor'
+                );
               }
 
               // remove `v-pre` attribute
@@ -169,7 +179,7 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
 
               return node;
             }
-  
+
             if (node.tagName === 'code') {
               console.log(node.attribs);
             }
@@ -183,19 +193,27 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
           return node;
         };
 
-        const handleNodes = (nodes: AnyNode[] | null, base: string, isCustomElement: (tagName: string) => boolean): AnyNode[] =>
-          Array.isArray(nodes) ? nodes.map((node) => handleNode(node, base, isCustomElement)).filter((node): node is AnyNode => node !== null) : [];
+        const handleNodes = (
+          nodes: AnyNode[] | null,
+          base: string,
+          isCustomElement: (tagName: string) => boolean
+        ): AnyNode[] =>
+          Array.isArray(nodes)
+            ? nodes
+                .map(node => handleNode(node, base, isCustomElement))
+                .filter((node): node is AnyNode => node !== null)
+            : [];
 
         const renderedContent = md.render(mdContent, {});
 
         const rootNodes = $.parseHTML(renderedContent) || [];
 
         const _excerptLength = data.excerptLength ?? 200;
-        
+
         if (_excerptLength) {
           for (const node of rootNodes) {
             const resolvedNode = handleNode(node, '', (): boolean => false);
-    
+
             if (resolvedNode) {
               excerpt += `${$.html(resolvedNode)}`;
               if (excerpt.length >= _excerptLength) break;
@@ -208,7 +226,7 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
 
       result = data;
     } else {
-      const blockStr = parsedSFC?.customBlocks.find((b) => {
+      const blockStr = parsedSFC?.customBlocks.find(b => {
         return b.type === 'route';
       });
 

@@ -4,7 +4,15 @@ import { resolve } from 'path';
 import { URLSearchParams } from 'url';
 
 import type { ModuleNode, ViteDevServer } from 'vite';
-import { cacheAllRouteRE, countSlashRE, dynamicRouteRE, MODULE_ID_VIRTUAL, nuxtCacheAllRouteRE, nuxtDynamicRouteRE, replaceDynamicRouteRE } from './constants';
+import {
+  cacheAllRouteRE,
+  countSlashRE,
+  dynamicRouteRE,
+  MODULE_ID_VIRTUAL,
+  nuxtCacheAllRouteRE,
+  nuxtDynamicRouteRE,
+  replaceDynamicRouteRE
+} from './constants';
 import type { ResolvedOptions } from './types';
 
 export const debug = {
@@ -57,7 +65,7 @@ export function invalidatePagesModule(server: ViteDevServer) {
   const mods = moduleGraph.getModulesByFile(MODULE_ID_VIRTUAL);
   if (mods) {
     const seen = new Set<ModuleNode>();
-    mods.forEach((mod) => {
+    mods.forEach(mod => {
       moduleGraph.invalidateModule(mod, seen);
     });
   }

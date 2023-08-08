@@ -8,7 +8,7 @@ import type { ImportModeResolver, ResolvedOptions, UserOptions } from './types';
 
 function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: string[], basePageDir) {
   dirs = toArray(dirs);
-  return dirs.flatMap((dir) => {
+  return dirs.flatMap(dir => {
     const option = typeof dir === 'string' ? { dir, baseRoute: '' } : dir;
 
     option.dir = basePageDir + '/' + slash(resolve(root, option.dir)).replace(`${root}/`, '');
@@ -42,7 +42,6 @@ const getResolver = (originalResolver: UserOptions['resolver']) => {
 };
 
 export function resolveOptions(userOptions: UserOptions, viteRoot?: string): ResolvedOptions {
-  
   const {
     dirs = userOptions.pagesDir || ['src/pages'],
     routeBlockLang = 'json5',

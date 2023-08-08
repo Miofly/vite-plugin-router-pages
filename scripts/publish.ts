@@ -4,7 +4,6 @@ import { version } from '../package.json';
 // let command = 'git commit -am \'feat: update\'  && pnpm publish --access public --no-git-checks';
 let command = 'pnpm publish --access public --no-git-checks';
 
-if (version.includes('beta'))
-  command += ' --tag beta';
+if (version.includes('beta')) command += ' --tag beta';
 
 execSync(command, { stdio: 'inherit' });
