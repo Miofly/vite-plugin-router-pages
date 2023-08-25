@@ -6,12 +6,20 @@ import { getPageDirs } from './files';
 import { vueResolver } from './resolvers';
 import type { ImportModeResolver, ResolvedOptions, UserOptions } from './types';
 
-function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: string[], basePageDir) {
+function resolvePageDirs(
+  dirs: UserOptions['dirs'],
+  root: string,
+  exclude: string[],
+  basePageDir,
+) {
   dirs = toArray(dirs);
   return dirs.flatMap(dir => {
     const option = typeof dir === 'string' ? { dir, baseRoute: '' } : dir;
 
-    option.dir = basePageDir + '/' + slash(resolve(root, option.dir)).replace(`${root}/`, '');
+    option.dir =
+      basePageDir +
+      '/' +
+      slash(resolve(root, option.dir)).replace(`${root}/`, '');
 
     option.baseRoute = option.baseRoute.replace(/^\//, '').replace(/\/$/, '');
 
@@ -21,7 +29,8 @@ function resolvePageDirs(dirs: UserOptions['dirs'], root: string, exclude: strin
 
 export const syncIndexResolver: ImportModeResolver = (filepath, options) => {
   for (const page of options.dirs) {
-    if (page.baseRoute === '' && filepath.startsWith(`/${page.dir}/index`)) return 'sync';
+    if (page.baseRoute === '' && filepath.startsWith(`/${page.dir}/index`))
+      return 'sync';
   }
   return 'async';
 };
@@ -41,7 +50,10 @@ const getResolver = (originalResolver: UserOptions['resolver']) => {
   return resolver;
 };
 
-export function resolveOptions(userOptions: UserOptions, viteRoot?: string): ResolvedOptions {
+export function resolveOptions(
+  userOptions: UserOptions,
+  viteRoot?: string,
+): ResolvedOptions {
   const {
     dirs = userOptions.pagesDir || ['src/pages'],
     routeBlockLang = 'json5',
@@ -53,12 +65,13 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     onRoutesGenerated,
     onClientGenerated,
     basePageDir = userOptions.basePageDir || '',
-    baseLayout = userOptions.baseLayout || ''
+    baseLayout = userOptions.baseLayout || '',
   } = userOptions;
 
   const root = viteRoot || slash(process.cwd());
 
-  const importMode = userOptions.importMode || (syncIndex ? syncIndexResolver : 'async');
+  const importMode =
+    userOptions.importMode || (syncIndex ? syncIndexResolver : 'async');
 
   const resolver = getResolver(userOptions.resolver);
 
@@ -66,11 +79,20 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
 
   const extensionsRE = new RegExp(`\\.(${extensions.join('|')})$`);
 
-  const resolvedDirs = resolvePageDirs(dirs, root, exclude, userOptions.basePageDir);
+  const resolvedDirs = resolvePageDirs(
+    dirs,
+    root,
+    exclude,
+    userOptions.basePageDir,
+  );
 
-  const routeStyle = userOptions.nuxtStyle ? 'nuxt' : userOptions.routeStyle || 'next';
+  const routeStyle = userOptions.nuxtStyle
+    ? 'nuxt'
+    : userOptions.routeStyle || 'next';
 
-  const moduleIds = userOptions.moduleId ? [userOptions.moduleId] : resolver.resolveModuleIds?.() || MODULE_IDS;
+  const moduleIds = userOptions.moduleId
+    ? [userOptions.moduleId]
+    : resolver.resolveModuleIds?.() || MODULE_IDS;
 
   const resolvedOptions: ResolvedOptions = {
     dirs: resolvedDirs,
@@ -89,7 +111,7 @@ export function resolveOptions(userOptions: UserOptions, viteRoot?: string): Res
     onClientGenerated,
     routeNameSeparator,
     basePageDir,
-    baseLayout
+    baseLayout,
   };
 
   return resolvedOptions;

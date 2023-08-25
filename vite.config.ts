@@ -10,15 +10,15 @@ export default defineConfig({
     dts({
       entryRoot: './src',
       tsConfigFilePath: './tsconfig.json',
-      include: ['src']
-    })
+      include: ['src'],
+    }),
   ],
   build: {
     target: 'modules',
     outDir: 'es',
     lib: {
       entry: resolvePath('./src/index.ts'),
-      formats: ['es']
+      formats: ['es'],
     },
     rollupOptions: {
       output: {
@@ -26,8 +26,8 @@ export default defineConfig({
         entryFileNames: '[name].js',
         dir: 'es',
         preserveModulesRoot: 'src',
-        preserveModules: true
-      }
-    }
-  }
+        preserveModules: true,
+      },
+    },
+  },
 });

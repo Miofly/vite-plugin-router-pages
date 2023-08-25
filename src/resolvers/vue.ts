@@ -6,7 +6,13 @@ import type { PageContext } from '../context';
 import { getRouteBlock } from '../customBlock';
 import { generateClientCode } from '../stringify';
 import type { CustomBlock, Optional, PageResolver } from '../types';
-import { countSlash, isCatchAllRoute, isDynamicRoute, normalizeCase, normalizeName } from '../utils';
+import {
+  countSlash,
+  isCatchAllRoute,
+  isDynamicRoute,
+  normalizeCase,
+  normalizeName,
+} from '../utils';
 
 export interface VueRouteBase {
   name: string;
@@ -19,19 +25,31 @@ export interface VueRouteBase {
   meta?: Record<string, any>;
 }
 
-export interface VueRoute extends Omit<Optional<VueRouteBase, 'rawRoute' | 'name'>, 'children'> {
+export interface VueRoute
+  extends Omit<Optional<VueRouteBase, 'rawRoute' | 'name'>, 'children'> {
   children?: VueRoute[];
 }
 
-function prepareRoutes(ctx: PageContext, routes: VueRoute[], parent?: VueRoute) {
+function prepareRoutes(
+  ctx: PageContext,
+  routes: VueRoute[],
+  parent?: VueRoute,
+) {
   for (const route of routes) {
-    if (route.name) route.name = route.name.replace(RegExp(`${ctx.options.routeNameSeparator}index$`), '');
+    if (route.name)
+      route.name = route.name.replace(
+        RegExp(`${ctx.options.routeNameSeparator}index$`),
+        '',
+      );
 
     if (route.customBlock?.hideParPath) {
       const routeSplit = route.rawRoute?.split('/');
       if (routeSplit && routeSplit?.length >= 2) {
         const secondToLast = routeSplit[routeSplit.length - 2];
-        route.path = route.path.replace(secondToLast + ctx.options.routeNameSeparator, '');
+        route.path = route.path.replace(
+          secondToLast + ctx.options.routeNameSeparator,
+          '',
+        );
       }
     }
 
@@ -39,13 +57,14 @@ function prepareRoutes(ctx: PageContext, routes: VueRoute[], parent?: VueRoute) 
 
     if (!route.meta) {
       route.meta = {
-        title: route.path || route.name
+        title: route.path || route.name,
       };
     } else {
       route.meta.title = route.path || route.name;
     }
 
-    if (route.children) route.children = prepareRoutes(ctx, route.children, route);
+    if (route.children)
+      route.children = prepareRoutes(ctx, route.children, route);
 
     if (route.children?.find(c => c.name === route.name)) delete route.name;
 
@@ -60,8 +79,8 @@ function prepareRoutes(ctx: PageContext, routes: VueRoute[], parent?: VueRoute) 
         ...pick(route.customBlock, noInMeta),
         meta: {
           ...route.meta,
-          ...omit(route.customBlock, noInMeta)
-        }
+          ...omit(route.customBlock, noInMeta),
+        },
       });
       delete route.customBlock;
     }
@@ -72,14 +91,17 @@ function prepareRoutes(ctx: PageContext, routes: VueRoute[], parent?: VueRoute) 
   return routes;
 }
 
-async function computeVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>): Promise<VueRoute[]> {
+async function computeVueRoutes(
+  ctx: PageContext,
+  customBlockMap: Map<string, CustomBlock>,
+): Promise<VueRoute[]> {
   const pageRoutes = [...ctx.pageRouteMap.values()];
 
   const _routes = pageRoutes.map(async item => {
     const data = await generateRoutes(item, ctx, customBlockMap);
     return {
       ...item,
-      children: data
+      children: data,
     };
   });
 
@@ -108,7 +130,7 @@ async function generateRoutes(pageRoutes, ctx, customBlockMap) {
         path: '',
         component,
         customBlock,
-        rawRoute: page.route
+        rawRoute: page.route,
       };
 
       if (page.hideComp) {
@@ -130,7 +152,9 @@ async function generateRoutes(pageRoutes, ctx, customBlockMap) {
 
         if (isDynamic) dynamicRoute = true;
 
-        route.name += route.name ? `${routeNameSeparator}${normalizedName}` : normalizedName;
+        route.name += route.name
+          ? `${routeNameSeparator}${normalizedName}`
+          : normalizedName;
 
         if (route.name.includes(':')) {
           route.name = route.name.replace(/:/g, routeNameSeparator);
@@ -154,9 +178,13 @@ async function generateRoutes(pageRoutes, ctx, customBlockMap) {
           if (isDynamic) {
             if (normalizedName.includes(':')) {
               const _normalizedName = normalizedName.replace(/\:/g, '/:');
-              route.path += route.path ? `/:${_normalizedName}` : `:${_normalizedName}`;
+              route.path += route.path
+                ? `/:${_normalizedName}`
+                : `:${_normalizedName}`;
             } else {
-              route.path += route.path ? `/:${normalizedName}` : `:${normalizedName}`;
+              route.path += route.path
+                ? `/:${normalizedName}`
+                : `:${normalizedName}`;
             }
 
             if (isCatchAll) {
@@ -178,16 +206,22 @@ async function generateRoutes(pageRoutes, ctx, customBlockMap) {
               _path = normalizedPath.split('.');
             }
             if (_path?.length) {
-              route.path += route.path ? `${routeNameSeparator}${_path[1]}` : _path[1];
+              route.path += route.path
+                ? `${routeNameSeparator}${_path[1]}`
+                : _path[1];
               route.customBlock = {
                 ...route.customBlock,
-                order: _path[0]
+                order: _path[0],
               };
             } else {
-              route.path += route.path ? `${routeNameSeparator}${normalizedPath}` : normalizedPath;
+              route.path += route.path
+                ? `${routeNameSeparator}${normalizedPath}`
+                : normalizedPath;
             }
           } else {
-            route.path += route.path ? `${routeNameSeparator}${normalizedPath}` : normalizedPath;
+            route.path += route.path
+              ? `${routeNameSeparator}${normalizedPath}`
+              : normalizedPath;
           }
         }
       }
@@ -199,12 +233,16 @@ async function generateRoutes(pageRoutes, ctx, customBlockMap) {
 
   let finalRoutes = prepareRoutes(ctx, routes);
 
-  finalRoutes = (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes;
+  finalRoutes =
+    (await ctx.options.onRoutesGenerated?.(finalRoutes)) || finalRoutes;
 
   return finalRoutes;
 }
 
-async function resolveVueRoutes(ctx: PageContext, customBlockMap: Map<string, CustomBlock>) {
+async function resolveVueRoutes(
+  ctx: PageContext,
+  customBlockMap: Map<string, CustomBlock>,
+) {
   const finalRoutes = await computeVueRoutes(ctx, customBlockMap);
 
   let client = generateClientCode(finalRoutes, ctx.options);
@@ -258,7 +296,7 @@ export function vueResolver(): PageResolver {
       changed: async (ctx, path) => checkCustomBlockChange(ctx, path),
       removed: async (_ctx, path) => {
         customBlockMap.delete(path);
-      }
-    }
+      },
+    },
   };
 }

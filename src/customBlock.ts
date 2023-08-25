@@ -49,7 +49,9 @@ export function parseJSX(code: string): ParsedJSX[] {
     .slice(0, 1)
     .filter(
       (comment: ParsedJSX) =>
-        routeJSXReg.test(comment.value) && comment.value.includes(':') && comment.loc.start.line === 1
+        routeJSXReg.test(comment.value) &&
+        comment.value.includes(':') &&
+        comment.loc.start.line === 1,
     );
 }
 
@@ -63,32 +65,42 @@ export function parseYamlComment(code: ParsedJSX[], path: string): CustomBlock {
 
       return {
         ...memo,
-        ...yamlResult
+        ...yamlResult,
       };
     } catch (err: any) {
-      throw new Error(`Invalid YAML format of comment in ${path}\n${err.message}`);
+      throw new Error(
+        `Invalid YAML format of comment in ${path}\n${err.message}`,
+      );
     }
   }, {});
 }
 
 export async function parseSFC(code: string): Promise<SFCDescriptor> {
   try {
-    const { parse } = (await importModule('@vue/compiler-sfc')) as typeof import('@vue/compiler-sfc');
+    const { parse } = (await importModule(
+      '@vue/compiler-sfc',
+    )) as typeof import('@vue/compiler-sfc');
     return (
       parse(code, {
-        pad: 'space'
+        pad: 'space',
       }).descriptor ||
       // for @vue/compiler-sfc ^2.7
       (parse as any)({
-        source: code
+        source: code,
       })
     );
   } catch {
-    throw new Error('[vite-plugin-pages] Vue3\'s "@vue/compiler-sfc" is required.');
+    throw new Error(
+      '[vite-plugin-pages] Vue3\'s "@vue/compiler-sfc" is required.',
+    );
   }
 }
 
-export function parseCustomBlock(block: SFCBlock, filePath: string, options: ResolvedOptions): any {
+export function parseCustomBlock(
+  block: SFCBlock,
+  filePath: string,
+  options: ResolvedOptions,
+): any {
   const lang = block.lang ?? options.routeBlockLang;
 
   debug.routeBlock(`use ${lang} parser`);
@@ -97,19 +109,25 @@ export function parseCustomBlock(block: SFCBlock, filePath: string, options: Res
     try {
       return JSON5.parse(block.content);
     } catch (err: any) {
-      throw new Error(`Invalid JSON5 format of <${block.type}> content in ${filePath}\n${err.message}`);
+      throw new Error(
+        `Invalid JSON5 format of <${block.type}> content in ${filePath}\n${err.message}`,
+      );
     }
   } else if (lang === 'json') {
     try {
       return JSON.parse(block.content);
     } catch (err: any) {
-      throw new Error(`Invalid JSON format of <${block.type}> content in ${filePath}\n${err.message}`);
+      throw new Error(
+        `Invalid JSON format of <${block.type}> content in ${filePath}\n${err.message}`,
+      );
     }
   } else if (lang === 'yaml' || lang === 'yml') {
     try {
       return YAMLParser(block.content);
     } catch (err: any) {
-      throw new Error(`Invalid YAML format of <${block.type}> content in ${filePath}\n${err.message}`);
+      throw new Error(
+        `Invalid YAML format of <${block.type}> content in ${filePath}\n${err.message}`,
+      );
     }
   }
 }
@@ -126,7 +144,7 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
       const { data, content: mdContent } = matter(content);
       const { excerpt } = matter(content, {
         excerpt: true,
-        excerpt_separator: '<!-- more -->'
+        excerpt_separator: '<!-- more -->',
       });
 
       const md = MarkdownIt({
@@ -135,7 +153,7 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
         xhtmlOut: false,
         breaks: false,
         langPrefix: 'language-',
-        typographer: false
+        typographer: false,
       });
 
       if (excerpt) {
@@ -148,11 +166,15 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
         const handleNode = (
           node: AnyNode,
           base: string,
-          isCustomElement: (tagName: string) => boolean
+          isCustomElement: (tagName: string) => boolean,
         ): AnyNode | null => {
           if (node.type === 'tag') {
             // toc should be dropped
-            if ([node.attribs['class'], node.attribs['id']].some(item => ['table-of-contents', 'toc'].includes(item)))
+            if (
+              [node.attribs['class'], node.attribs['id']].some(item =>
+                ['table-of-contents', 'toc'].includes(item),
+              )
+            )
               return null;
 
             if (node.tagName === 'a') {
@@ -162,18 +184,25 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
 
             if (['table', 'pre'].includes(node.tagName)) return null;
             // standard tags can be returned
-            if (HTML_TAGS.includes(node.tagName) || SVG_TAGS.includes(node.tagName)) {
+            if (
+              HTML_TAGS.includes(node.tagName) ||
+              SVG_TAGS.includes(node.tagName)
+            ) {
               // remove heading id tabindex and anchor inside
               if (HEADING_TAGS.includes(node.tagName)) {
                 delete node.attribs['id'];
                 delete node.attribs['tabindex'];
                 node.children = node.children.filter(
-                  child => child.type !== 'tag' || child.tagName !== 'a' || child.attribs['class'] !== 'header-anchor'
+                  child =>
+                    child.type !== 'tag' ||
+                    child.tagName !== 'a' ||
+                    child.attribs['class'] !== 'header-anchor',
                 );
               }
 
               // remove `v-pre` attribute
-              if (node.tagName === 'code' || node.tagName === 'pre') delete node.attribs['v-pre'];
+              if (node.tagName === 'code' || node.tagName === 'pre')
+                delete node.attribs['v-pre'];
 
               node.children = handleNodes(node.children, base, isCustomElement);
 
@@ -196,7 +225,7 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
         const handleNodes = (
           nodes: AnyNode[] | null,
           base: string,
-          isCustomElement: (tagName: string) => boolean
+          isCustomElement: (tagName: string) => boolean,
         ): AnyNode[] =>
           Array.isArray(nodes)
             ? nodes
@@ -234,9 +263,11 @@ export async function getRouteBlock(path: string, options: ResolvedOptions) {
 
       if (!blockStr && parsedJSX.length === 0) return;
 
-      if (blockStr) result = parseCustomBlock(blockStr, path, options) as CustomBlock;
+      if (blockStr)
+        result = parseCustomBlock(blockStr, path, options) as CustomBlock;
 
-      if (parsedJSX.length > 0) result = parseYamlComment(parsedJSX, path) as CustomBlock;
+      if (parsedJSX.length > 0)
+        result = parseYamlComment(parsedJSX, path) as CustomBlock;
     }
 
     return result;

@@ -55,7 +55,9 @@ export class PageContext {
     watcher.on('unlink', async path => {
       path = slash(path);
       if (!isTarget(path, this.options)) return;
-      const page = this.options.dirs.find(i => path.startsWith(slash(resolve(this.root, i.dir))))!;
+      const page = this.options.dirs.find(i =>
+        path.startsWith(slash(resolve(this.root, i.dir))),
+      )!;
       await this.removePage(path, page);
       this.onUpdate();
     });
@@ -63,7 +65,9 @@ export class PageContext {
       path = slash(path);
 
       if (!isTarget(path, this.options)) return;
-      const page = this.options.dirs.find(i => path.startsWith(slash(resolve(this.root, i.dir))))!;
+      const page = this.options.dirs.find(i =>
+        path.startsWith(slash(resolve(this.root, i.dir))),
+      )!;
       await this.addPage(path, page);
       this.onUpdate();
     });
@@ -71,7 +75,9 @@ export class PageContext {
     watcher.on('change', async path => {
       path = slash(path);
       if (!isTarget(path, this.options)) return;
-      const page = this.options.dirs.find(i => path.startsWith(slash(resolve(this.root, i.dir))))!;
+      const page = this.options.dirs.find(i =>
+        path.startsWith(slash(resolve(this.root, i.dir))),
+      )!;
 
       const pageList = this._pageRouteMap.get(page.dir) as RouteType;
 
@@ -98,7 +104,13 @@ export class PageContext {
         return item.path === route;
       });
 
-      const _pageDirInfos = omit(pageDir, ['files', 'dir', 'baseRoute', 'title', 'levelRouterDirList']);
+      const _pageDirInfos = omit(pageDir, [
+        'files',
+        'dir',
+        'baseRoute',
+        'title',
+        'levelRouterDirList',
+      ]);
 
       const routeInfo = _route?.length
         ? {
@@ -106,12 +118,15 @@ export class PageContext {
             ..._route[0],
             path: p,
             route,
-            hideComp: true
+            hideComp: true,
           }
         : { ..._pageDirInfos, path: p, route };
 
       // 如果之前已经存在直接塞到 children 中
-      if (this._pageRouteMap.get(pageDir.dir) && !isEmptyObject(this._pageRouteMap.get(pageDir.dir))) {
+      if (
+        this._pageRouteMap.get(pageDir.dir) &&
+        !isEmptyObject(this._pageRouteMap.get(pageDir.dir))
+      ) {
         this._pageRouteMap.get(pageDir.dir)!.children.push(routeInfo);
       } else {
         this._pageRouteMap.set(pageDir.dir, {
@@ -121,9 +136,9 @@ export class PageContext {
           meta: {
             ..._pageDirInfos,
             title: pageDir.title,
-            isMd: pageDir.isMd
+            isMd: pageDir.isMd,
           },
-          children: [routeInfo]
+          children: [routeInfo],
         });
       }
 
@@ -136,7 +151,7 @@ export class PageContext {
     if (pageList.children?.length) {
       pageList.children.splice(
         pageList.children.findIndex(item => item.path === path),
-        1
+        1,
       );
     }
 
@@ -151,7 +166,7 @@ export class PageContext {
     invalidatePagesModule(this._server);
     debug.hmr('Reload generated pages.');
     this._server.ws.send({
-      type: 'full-reload'
+      type: 'full-reload',
     });
   }
 
@@ -170,11 +185,11 @@ export class PageContext {
       if (page.isMd) {
         page.levelRouterDirList = fg
           .sync(slash(pagesDirPath) + '/**', {
-            onlyDirectories: true
+            onlyDirectories: true,
           })
           .map(item => {
             return {
-              path: item.replace(new RegExp(pagesDirPath + '/'), '')
+              path: item.replace(new RegExp(pagesDirPath + '/'), ''),
             };
           });
       }
@@ -187,7 +202,7 @@ export class PageContext {
 
       return {
         ...page,
-        files: files.map(file => slash(file))
+        files: files.map(file => slash(file)),
       };
     });
 

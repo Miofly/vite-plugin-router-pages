@@ -1,5 +1,9 @@
 import type { Plugin } from 'vite';
-import { MODULE_ID_VIRTUAL, ROUTE_BLOCK_ID_VIRTUAL, routeBlockQueryRE } from './constants';
+import {
+  MODULE_ID_VIRTUAL,
+  ROUTE_BLOCK_ID_VIRTUAL,
+  routeBlockQueryRE,
+} from './constants';
 import { PageContext } from './context';
 import type { UserOptions } from './types';
 
@@ -19,13 +23,14 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
     api: {
       getResolvedRoutes() {
         return ctx.options.resolver.getComputedRoutes(ctx);
-      }
+      },
     },
     configureServer(server) {
       ctx.setupViteServer(server);
     },
     resolveId(id) {
-      if (ctx.options.moduleIds.includes(id)) return `${MODULE_ID_VIRTUAL}?id=${id}`;
+      if (ctx.options.moduleIds.includes(id))
+        return `${MODULE_ID_VIRTUAL}?id=${id}`;
 
       if (routeBlockQueryRE.test(id)) return ROUTE_BLOCK_ID_VIRTUAL;
 
@@ -34,18 +39,22 @@ function pagesPlugin(userOptions: UserOptions = {}): Plugin {
     async load(id) {
       const { moduleId, pageId } = parsePageRequest(id);
 
-      if (moduleId === MODULE_ID_VIRTUAL && pageId && ctx.options.moduleIds.includes(pageId))
+      if (
+        moduleId === MODULE_ID_VIRTUAL &&
+        pageId &&
+        ctx.options.moduleIds.includes(pageId)
+      )
         return ctx.resolveRoutes();
 
       if (id === ROUTE_BLOCK_ID_VIRTUAL) {
         return {
           code: 'export default {};',
-          map: null
+          map: null,
         };
       }
 
       return null;
-    }
+    },
   };
 }
 

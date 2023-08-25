@@ -11,7 +11,7 @@ import {
   MODULE_ID_VIRTUAL,
   nuxtCacheAllRouteRE,
   nuxtDynamicRouteRE,
-  replaceDynamicRouteRE
+  replaceDynamicRouteRE,
 } from './constants';
 import type { ResolvedOptions } from './types';
 
@@ -23,11 +23,13 @@ export const debug = {
   search: Debug('vite-plugin-pages:search'),
   env: Debug('vite-plugin-pages:env'),
   cache: Debug('vite-plugin-pages:cache'),
-  resolver: Debug('vite-plugin-pages:resolver')
+  resolver: Debug('vite-plugin-pages:resolver'),
 };
 
 export function extsToGlob(extensions: string[]) {
-  return extensions.length > 1 ? `{${extensions.join(',')}}` : extensions[0] || '';
+  return extensions.length > 1
+    ? `{${extensions.join(',')}}`
+    : extensions[0] || '';
 }
 
 export function countSlash(value: string) {
@@ -47,11 +49,15 @@ export function isTarget(path: string, options: ResolvedOptions) {
 }
 
 export function isDynamicRoute(routePath: string, nuxtStyle = false) {
-  return nuxtStyle ? nuxtDynamicRouteRE.test(routePath) : dynamicRouteRE.test(routePath);
+  return nuxtStyle
+    ? nuxtDynamicRouteRE.test(routePath)
+    : dynamicRouteRE.test(routePath);
 }
 
 export function isCatchAllRoute(routePath: string, nuxtStyle = false) {
-  return nuxtStyle ? nuxtCacheAllRouteRE.test(routePath) : cacheAllRouteRE.test(routePath);
+  return nuxtStyle
+    ? nuxtCacheAllRouteRE.test(routePath)
+    : cacheAllRouteRE.test(routePath);
 }
 
 export function resolveImportMode(filepath: string, options: ResolvedOptions) {
@@ -76,10 +82,16 @@ export function normalizeCase(str: string, caseSensitive: boolean) {
   return str;
 }
 
-export function normalizeName(name: string, isDynamic: boolean, nuxtStyle = false) {
+export function normalizeName(
+  name: string,
+  isDynamic: boolean,
+  nuxtStyle = false,
+) {
   if (!isDynamic) return name;
 
-  return nuxtStyle ? name.replace(nuxtDynamicRouteRE, '$1') || 'all' : name.replace(replaceDynamicRouteRE, '$1');
+  return nuxtStyle
+    ? name.replace(nuxtDynamicRouteRE, '$1') || 'all'
+    : name.replace(replaceDynamicRouteRE, '$1');
 }
 
 export function parsePageRequest(id: string) {
@@ -90,6 +102,6 @@ export function parsePageRequest(id: string) {
   return {
     moduleId,
     query,
-    pageId
+    pageId,
   };
 }

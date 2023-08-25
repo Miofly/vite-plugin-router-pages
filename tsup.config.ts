@@ -7,10 +7,10 @@ export default defineConfig({
   dts: {
     resolve: true,
     compilerOptions: {
-      skipLibCheck: true
-    }
+      skipLibCheck: true,
+    },
   },
   tsconfig: resolve('./tsconfig.json'),
   clean: true,
-  sourcemap: false
+  sourcemap: false,
 });

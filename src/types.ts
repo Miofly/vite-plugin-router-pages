@@ -5,7 +5,10 @@ import type { VueRoute } from './resolvers';
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
 export type ImportMode = 'sync' | 'async';
-export type ImportModeResolver = (filepath: string, pluginOptions: ResolvedOptions) => ImportMode;
+export type ImportModeResolver = (
+  filepath: string,
+  pluginOptions: ResolvedOptions,
+) => ImportMode;
 
 export interface ParsedJSX {
   value: string;
@@ -139,7 +142,14 @@ interface Options {
 export type UserOptions = Partial<Options>;
 
 export interface ResolvedOptions
-  extends Omit<Options, 'pagesDir' | 'replaceSquareBrackets' | 'nuxtStyle' | 'syncIndex' | 'moduleId'> {
+  extends Omit<
+    Options,
+    | 'pagesDir'
+    | 'replaceSquareBrackets'
+    | 'nuxtStyle'
+    | 'syncIndex'
+    | 'moduleId'
+  > {
   /**
    * Resolves to the `root` value from Vite config.
    * @default config.root

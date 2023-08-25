@@ -8,18 +8,22 @@ import { extsToGlob } from './utils';
 /**
  * Resolves the page dirs for its for its given globs
  */
-export function getPageDirs(PageOptions: PageOptions, root: string, exclude: string[]): PageOptions[] {
+export function getPageDirs(
+  PageOptions: PageOptions,
+  root: string,
+  exclude: string[],
+): PageOptions[] {
   const dirs = fg.sync(slash(PageOptions.dir), {
     ignore: exclude,
     onlyDirectories: true,
     dot: true,
     unique: true,
-    cwd: root
+    cwd: root,
   });
 
   const pageDirs = dirs.map(dir => ({
     ...PageOptions,
-    dir
+    dir,
   }));
 
   return pageDirs;
@@ -37,7 +41,7 @@ export function getPageFiles(path: string, options: ResolvedOptions): string[] {
     .sync(`**/*.${ext}`, {
       ignore: exclude,
       onlyFiles: true,
-      cwd: path
+      cwd: path,
     })
     .map(p => slash(join(path, p)));
 
