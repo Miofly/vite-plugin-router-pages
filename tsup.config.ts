@@ -10,6 +10,7 @@ export default defineConfig({
       skipLibCheck: true,
     },
   },
+  skipNodeModulesBundle: true,
   tsconfig: resolve('./tsconfig.json'),
   clean: true,
   sourcemap: false,

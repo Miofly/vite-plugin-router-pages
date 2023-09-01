@@ -1,10 +1,8 @@
 {
   "extends": "@vft/tsconfig/tsconfig.node.json",
   "compilerOptions": {
-    "strict": false
+    "strict": false,
+    "lib": ["dom"]
   },
-  "include": [
-    "scripts",
-    "src"
-  ]
+  "include": ["scripts", "src"]
 }
