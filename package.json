@@ -8,31 +8,31 @@
     "vue-router"
   ],
   "license": "MIT",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./client": {
-      "types": "./client.d.ts"
-    }
+  "type": "module",
+  "scripts": {
+    "build": "pnpm clean:dist && pnpm stub",
+    "stub": "unbuild --stub",
+    "pub": "pnpm build &&  tsx ../../scripts/build/src/publish.ts --pkg vite-plugin/vite-plugin-router-pages",
+    "clean": "pnpm /^clean:/",
+    "clean:dist": "rimraf dist",
+    "clean:node_modules": "rimraf node_modules"
   },
   "files": [
     "dist",
     "client.d.ts"
   ],
-  "scripts": {
-    "build": "tsup",
-    "stub": "tsup",
-    "prepublishOnly": "npm run build",
-    "pub": "pnpm build &&  tsx ../../scripts/build/src/publish.ts --pkg vite-plugin/vite-plugin-router-pages",
-    "clean": "pnpm /^clean:/",
-    "clean:dist": "rimraf dist",
-    "clean:node_modules": "rimraf node_modules"
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./client": {
+      "types": "./client.d.ts"
+    }
   },
   "peerDependencies": {
     "@vue/compiler-sfc": "^2.7.0 || ^3.0.0",
