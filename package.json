@@ -11,11 +11,22 @@
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "publishConfig": {
+    "main": "dist/index.js",
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "scripts": {
-    "build": "pnpm clean:dist && pnpm stub",
-    "dev": "pnpm stub",
     "stub": "unbuild --stub",
+    "dev": "pnpm stub",
+    "build": "pnpm clean:dist && pnpm -F @vft/script test",
     "pub": "pnpm build &&  tsx ../../scripts/build/src/publish.ts --pkg vite-plugin/vite-plugin-router-pages",
     "clean": "pnpm /^clean:/",
     "clean:dist": "rimraf dist",
@@ -25,19 +36,15 @@
     "dist",
     "client.d.ts"
   ],
-  "exports": {
-    ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
-    },
-    "./client": {
-      "types": "./client.d.ts"
-    }
+  "author": {
+    "name": "wfly",
+    "url": "https://github.com/Miofly",
+    "email": "953212389@qq.com"
   },
   "peerDependencies": {
     "@vue/compiler-sfc": "^2.7.0 || ^3.0.0",
-    "vite": "^2.0.0 || ^3.0.0-0 || ^4.0.0"
+    "vite": "^2.0.0 || ^3.0.0 || ^4.0.0",
+    "typescript": ">=4.0.0"
   },
   "peerDependenciesMeta": {
     "@vue/compiler-sfc": {
@@ -69,10 +76,7 @@
     "vue-router": "4.2.1"
   },
   "devDependencies": {
-    "unbuild": "2.0.0"
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org"
+    "unbuild": "2.0.0",
+    "@vft/tsconfig": "*"
   }
 }
