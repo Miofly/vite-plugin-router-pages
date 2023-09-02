@@ -14,6 +14,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm clean:dist && pnpm stub",
+    "dev": "pnpm stub",
     "stub": "unbuild --stub",
     "pub": "pnpm build &&  tsx ../../scripts/build/src/publish.ts --pkg vite-plugin/vite-plugin-router-pages",
     "clean": "pnpm /^clean:/",
